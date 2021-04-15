@@ -1,5 +1,8 @@
 # OrrickFlashcards
- 
+
+![HomeScreen](_img/home.png) 
+![HomeScreen](_img/cards.png)
+
 This is the first iteration of the 2020 version of the Orrick Flashcard Generator. 
 
 
