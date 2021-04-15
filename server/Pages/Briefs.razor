@@ -1,0 +1,75 @@
+﻿@page "/briefs"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.BriefsComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Briefs">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenSplitButton Icon="get_app" style="margin-bottom: 10px; margin-left: 10px" Text="Export" Click="@Splitbutton0Click">
+          <ChildContent>
+            <RadzenSplitButtonItem Text="Excel" Value="xlsx">
+            </RadzenSplitButtonItem>
+            <RadzenSplitButtonItem Text="CSV" Value="csv">
+            </RadzenSplitButtonItem>
+          </ChildContent>
+        </RadzenSplitButton>
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await grid0.GoToPage(0);await Load();})">
+        </RadzenTextBox>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getBriefsResult" FilterMode="FilterMode.Advanced" TItem="Flashcardgenerator.Models.Localhost.Brief" PageSize="15" RowExpand="@Grid0RowExpand" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Brief" FilterProperty="Client.longName" Property="clientId" SortProperty="Client.longName" Title="Client">
+              <Template Context="data">
+              @(data.Client?.longName)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Brief" Property="opposingParty" Title="Opposing Party">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Brief" Property="briefType" Title="Brief Type">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Brief" Property="isTestBrief" Title="Test Brief?" Width="50px">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Brief" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+              <Template Context="flashcardgeneratorModelsLocalhostBrief">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, flashcardgeneratorModelsLocalhostBrief))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+          <Template Context="flashcardgeneratorModelsLocalhostBrief">
+            <RadzenHeading Size="H1" Text="Cards">
+            </RadzenHeading>
+            <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@((args) =>CardAddButtonClick(args, flashcardgeneratorModelsLocalhostBrief))">
+            </RadzenButton>
+            <RadzenGrid @ref="grid1" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@(flashcardgeneratorModelsLocalhostBrief.Cards)" FilterMode="FilterMode.Advanced" TItem="Flashcardgenerator.Models.Localhost.Card" PageNumbersCount="0" PageSize="10" RowSelect="@((args) =>Grid1RowSelect(args, flashcardgeneratorModelsLocalhostBrief))">
+              <Columns>
+                <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Card" FilterProperty="Category.name" Property="categoryId" SortProperty="Category.name" Title="Category" Width="150px">
+                  <Template Context="data">
+                  @(data.Category?.name)
+                  </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Card" Property="Question" Title="Question">
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Card" Property="Answer" Title="Answer">
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Card" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+                  <Template Context="flashcardgeneratorModelsLocalhostCard">
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>CardDeleteButtonClick(args, flashcardgeneratorModelsLocalhostCard))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                  </Template>
+                </RadzenGridColumn>
+              </Columns>
+            </RadzenGrid>
+          </Template>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

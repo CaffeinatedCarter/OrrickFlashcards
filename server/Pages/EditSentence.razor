@@ -1,0 +1,91 @@
+﻿@page "/edit-sentence/{sentenceId}"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.EditSentenceComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <div  class="row">
+      <div class="col-md-9">
+        <RadzenLabel style="font-weight: bold" Text="Item no longer available." Visible="@(!canEdit)">
+        </RadzenLabel>
+      </div>
+      <div class="col-md-3">
+        <RadzenButton ButtonStyle="ButtonStyle.Secondary" style="margin-bottom: 20px" Text="Close" Visible="@(!canEdit)" Click="@CloseButtonClick">
+        </RadzenButton>
+      </div>
+    </div>
+    <div  class="row">
+      <div class="col-md-9">
+        <RadzenLabel style="font-weight: bold" Text="Another user has made conflicting changes to one or more of the fields you have modified. Please reload." Visible="@hasChanges">
+        </RadzenLabel>
+      </div>
+      <div class="col-md-3">
+        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="autorenew" style="margin-bottom: 20px" Text="Reload" Visible="@hasChanges" Click="@Button0Click">
+        </RadzenButton>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@sentence" TItem="Flashcardgenerator.Models.Localhost.Sentence" style="height: 317.109375px" Visible="@(sentence != null && canEdit)" Submit="@Form0Submit">
+          <ChildContent>
+            <div class="row">
+              <div style="margin-bottom: 1rem; margin-left: 0; margin-right: " class="row">
+                <div class="col-md-3">
+                  <RadzenLabel Component="briefId" style="width: 100%" Text="client">
+                  </RadzenLabel>
+                </div>
+                <div class="col-md-9">
+                  <RadzenDropDownDataGrid Data="@getBriefsForbriefIdResult" Disabled="true" Placeholder="Client" ShowSearch="false" style="display: block; width: 100%" TextProperty="Client.shortName" @bind-Value="@(sentence.Brief.clientId)" ValueProperty="Client.clientId" Name="ClientName">
+                  </RadzenDropDownDataGrid>
+                </div>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="briefId" style="width: 100%" Text="Brief">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDownDataGrid Data="@getBriefsForbriefIdResult" Placeholder="Choose Brief" ShowSearch="false" style="display: block; width: 100%" TextProperty="briefType" @bind-Value="@(sentence.briefId)" ValueProperty="briefId" Name="BriefId">
+                </RadzenDropDownDataGrid>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="content" style="width: 100%" Text="Content">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextArea style="height: 125px; width: 100%" @bind-Value="@(sentence.content)" Name="Content">
+                </RadzenTextArea>
+                <RadzenRequiredValidator Component="Content" style="float: left; position: relative; width: 122.796875px" Text="content is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="verified" style="width: 100%" Text="Verified">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenCheckBox @bind-Value="@(sentence.verified)" Name="Verified">
+                </RadzenCheckBox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Cancel" Click="@Button4Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

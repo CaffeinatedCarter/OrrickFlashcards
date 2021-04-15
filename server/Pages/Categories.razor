@@ -1,0 +1,43 @@
+﻿@page "/categories"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.CategoriesComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Categories">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenSplitButton Icon="get_app" style="margin-left: 10px; margin-bottom: 10px" Text="Export" Click="@Splitbutton0Click">
+          <ChildContent>
+            <RadzenSplitButtonItem Text="Excel" Value="xlsx">
+            </RadzenSplitButtonItem>
+            <RadzenSplitButtonItem Text="CSV" Value="csv">
+            </RadzenSplitButtonItem>
+          </ChildContent>
+        </RadzenSplitButton>
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await grid0.GoToPage(0);await Load();})">
+        </RadzenTextBox>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getCategoriesResult" TItem="Flashcardgenerator.Models.Localhost.Category" PageSize="15" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Category" Property="categoryId" Title="Category Id">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Category" Property="name" Title="Name">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Category" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="flashcardgeneratorModelsLocalhostCategory">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, flashcardgeneratorModelsLocalhostCategory))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

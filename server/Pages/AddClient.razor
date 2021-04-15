@@ -1,0 +1,61 @@
+﻿@page "/add-client"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.AddClientComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@client" Visible="@(client != null)" TItem="Flashcardgenerator.Models.Localhost.Client" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Is Current" Component="isCurrent" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenCheckBox TriState="true" @bind-Value="@(client.isCurrent)" Name="IsCurrent">
+                </RadzenCheckBox>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Long Name" Component="longName" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="128" style="display: block; width: 100%" @bind-Value="@(client.longName)" Name="LongName">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="LongName" Text="longName is required" style="position: absolute">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Short Name" Component="shortName" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="16" style="display: block; width: 100%" @bind-Value="@(client.shortName)" Name="ShortName">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="ShortName" Text="shortName is required" style="position: absolute">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Save" ButtonStyle="ButtonStyle.Primary">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Cancel" Click="@Button2Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

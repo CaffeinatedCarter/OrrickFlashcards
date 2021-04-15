@@ -1,0 +1,56 @@
+﻿@page "/"
+@page "/home"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.HomeComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Home">
+    </RadzenHeading>
+    <div style="height: 69px; margin-left: 0px" class="row">
+      <div class="col-md-12">
+        <RadzenHeading Size="H2" Text="Welcome!">
+        </RadzenHeading>
+        <RadzenLabel Text="This generator is designed to take DOCX files as input. It outputs a deck of flashcards based on the sentence content.">
+        </RadzenLabel>
+      </div>
+    </div>
+    <div style="margin-top: 30px" class="row">
+      <div class="col-md-12">
+        <RadzenLabel style="margin-left: 30px; margin-right: 30px" Text="Select an existing brief
+        ">
+        </RadzenLabel>
+        <RadzenDropDownDataGrid Data="@getBriefs" ValueProperty="briefId" Name="DropdownDatagrid0" TValue="dynamic" Change="@DropdownDatagrid0Change"> 
+          <Template Context="data">
+          @(data.Client.shortName) - @(data.briefType)
+          </Template>
+        </RadzenDropDownDataGrid>
+        <RadzenLabel style="margin-left: 30px; margin-right: 30px" Text="or
+        ">
+        </RadzenLabel>
+        <RadzenButton style="margin-right: 30px" Text="Add Brief" Click="@Button0Click">
+        </RadzenButton>
+      </div>
+    </div>
+    <div style="margin-left: 0; margin-top: 30px" class="row">
+      <div class="col-md-12">
+        <RadzenButton style="margin-right: 30px" Text="Upload file" Click="@UploadFileClick">
+        </RadzenButton>
+        <RadzenButton Text="Process File" Click="@ProcessFileClick">
+        </RadzenButton>
+        <RadzenProgressBar style="width: 316px" Value="@(Globals.progressBarVal)" Visible="@showProgress">
+        </RadzenProgressBar>
+      </div>
+    </div>
+    <div style="margin-top: 30px" class="row">
+      <div class="col-md-12">
+        <RadzenButton ButtonStyle="ButtonStyle.Success" ButtonType="ButtonType.Submit" style="bottom: 0; display: inline-block; margin-bottom: ; margin-left: 15px; margin-right: ; margin-top: 50px; padding-bottom: ; padding-top: ; position: relative; right: ; top: -10px" Text="Load brief" Click="@GoClick">
+        </RadzenButton>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>
+ 

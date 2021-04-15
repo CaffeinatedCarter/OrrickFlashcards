@@ -1,0 +1,36 @@
+﻿<Properties StartupConfiguration="{30592809-6EB9-430F-B7FD-E228A1122E09}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
+    <Files>
+      <File FileName="Data/DocProcessing.cs" Line="1" Column="1" />
+      <File FileName="Data/LegalSegmenter.cs" />
+      <File FileName="Controllers/UploadController.cs" Line="69" Column="12" />
+      <File FileName="Aspose.Words.lic" Line="1" Column="1" />
+      <File FileName="Pages/Upload.razor.cs" Line="37" Column="47" />
+      <File FileName="Pages/Home.razor.cs" Line="53" Column="1" />
+      <File FileName="Pages/Clients.razor" Line="1" Column="1" />
+      <File FileName="Pages/LoadBrief.razor.cs" Line="63" Column="1" />
+      <File FileName="Pages/Cards.razor.designer.cs" Line="56" Column="9" />
+      <File FileName="Pages/Sentences.razor" Line="1" Column="1" />
+      <File FileName="appsettings.json" Line="1" Column="1" />
+      <File FileName="Startup.cs" Line="105" Column="31" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Flashcardgenerator" expanded="True">
+            <Node name="Flashcardgenerator" expanded="True">
+              <Node name="Startup.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Flashcardgenerator PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

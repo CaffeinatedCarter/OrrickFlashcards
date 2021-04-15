@@ -1,0 +1,63 @@
+﻿@page "/load-brief"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.LoadBriefComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" style="width: 427px" Text="Loaded Brief">
+    </RadzenHeading>
+    <RadzenLabel Component="dropdown0" style="margin-bottom: 10px" Text="Selected Brief:">
+    </RadzenLabel>
+    <RadzenLabel style="margin-bottom: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px" Text="@($"{(briefObj.Client.shortName)}")">
+    </RadzenLabel>
+    <RadzenLabel style="margin-bottom: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px" Text="v">
+    </RadzenLabel>
+    <RadzenLabel style="margin-bottom: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px" Text="@($"{(briefObj.opposingParty)}")">
+    </RadzenLabel>
+    <RadzenLabel style="margin-bottom: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px" Text="— ">
+    </RadzenLabel>
+    <RadzenLabel style="margin-bottom: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px" Text="@($"{(briefObj.briefType)}")">
+    </RadzenLabel>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" style="float: right; margin-bottom: 10px; margin-left: 10px" Text="Download Cards" Click="@DownloadClick">
+        </RadzenButton>
+        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="call_merge" style="margin-bottom: 10px; margin-left: 10px; margin-right: 10px" Text="Merge" Click="@Button1Click">
+        </RadzenButton>
+        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete_forever" style="margin-bottom: 10px; margin-left: 10px; margin-right: 10px" Text="Delete Selected" Click="@Button2Click">
+        </RadzenButton>
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await grid0.GoToPage(0);await Load();})">
+        </RadzenTextBox>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Count="@cardCount" Data="@getCardsResult" FilterMode="FilterMode.Advanced" TItem="Flashcardgenerator.Models.Localhost.Card" SelectionMode="DataGridSelectionMode.Multiple" Value="@getSelectedCards" RowCreate="@Grid0RowCreate" RowDoubleClick="@Grid0RowDoubleClick" RowUpdate="@Grid0RowUpdate">
+          <Columns>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Card" Property="Answer" Title="Answer">
+              <EditTemplate Context="flashcardgeneratorModelsLocalhostCard">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(flashcardgeneratorModelsLocalhostCard.Answer)" Name="Answer">
+                </RadzenTextBox>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Card" Property="Question" Title="Question">
+              <EditTemplate Context="flashcardgeneratorModelsLocalhostCard">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(flashcardgeneratorModelsLocalhostCard.Question)" Name="Question">
+                </RadzenTextBox>
+              </EditTemplate>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Card" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="70px">
+              <Template Context="flashcardgeneratorModelsLocalhostCard">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, flashcardgeneratorModelsLocalhostCard))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+    <RadzenLabel style="float: right" Text="@($"{cardCount}")">
+    </RadzenLabel>
+  </ChildContent>
+</RadzenContent>

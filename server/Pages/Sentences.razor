@@ -1,0 +1,49 @@
+﻿@page "/sentences"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.SentencesComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Sentences">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenSplitButton Icon="get_app" style="margin-bottom: 10px; margin-left: 10px" Text="Export" Click="@Splitbutton0Click">
+          <ChildContent>
+            <RadzenSplitButtonItem Text="Excel" Value="xlsx">
+            </RadzenSplitButtonItem>
+            <RadzenSplitButtonItem Text="CSV" Value="csv">
+            </RadzenSplitButtonItem>
+          </ChildContent>
+        </RadzenSplitButton>
+        <RadzenButton Icon="sync" style="float: right; margin-bottom: 10px" Text="Convert to cards" Click="@ConvertToCardsClick">
+        </RadzenButton>
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await grid0.GoToPage(0);await Load();})">
+        </RadzenTextBox>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getSentencesResult" FilterMode="FilterMode.Advanced" TItem="Flashcardgenerator.Models.Localhost.Sentence" PageSize="15" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Sentence" Property="Brief.Client.shortName" Title="Client" Width="150px" Type="string">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Sentence" Property="Brief.briefType" Title="Brief Type" Width="150px" Type="string">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Sentence" Property="parseNum" Title="Doc Sen #" Width="75px" Type="integer">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Sentence" Property="content" Title="Content" Type="string">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Flashcardgenerator.Models.Localhost.Sentence" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Title="Delete" Width="70px" Type="integer">
+              <Template Context="flashcardgeneratorModelsLocalhostSentence">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, flashcardgeneratorModelsLocalhostSentence))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

@@ -1,0 +1,75 @@
+﻿@page "/add-brief"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.AddBriefComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@brief" TItem="Flashcardgenerator.Models.Localhost.Brief" Visible="@(brief != null)" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="briefType" style="width: 100%" Text="Brief Type">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="64" style="width: 100%" @bind-Value="@(brief.briefType)" Name="BriefType">
+                </RadzenTextBox>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="clientId" style="width: 100%" Text="Client">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-6">
+                <RadzenDropDownDataGrid Data="@getClientsForclientIdResult" Placeholder="Choose Client" ShowSearch="false" style="display: block; width: 607px" TextProperty="longName" @bind-Value="@(brief.clientId)" ValueProperty="clientId" Name="ClientId">
+                </RadzenDropDownDataGrid>
+                <RadzenRequiredValidator Component="ClientId" DefaultValue="0" style="position: absolute" Text="clientId is required">
+                </RadzenRequiredValidator>
+              </div>
+              <div class="col-md-3">
+                <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px; width: 217.53125px" Text="Add New Client" Click="@Button0Click">
+                </RadzenButton>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="isTestBrief" style="width: 100%" Text="Is Test Brief">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenCheckBox TriState="true" @bind-Value="@(brief.isTestBrief)" Name="IsTestBrief">
+                </RadzenCheckBox>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="opposingParty" style="width: 100%" Text="Opposing Party">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="128" style="display: block; width: 100%" @bind-Value="@(brief.opposingParty)" Name="OpposingParty">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="OpposingParty" style="position: absolute" Text="opposingParty is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Cancel" Click="@Button3Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

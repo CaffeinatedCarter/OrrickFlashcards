@@ -1,0 +1,73 @@
+﻿@page "/add-sentence"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.AddSentenceComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm Data="@sentence" TItem="Flashcardgenerator.Models.Localhost.Sentence" Visible="@(sentence != null)" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="briefId" style="width: 100%" Text="Brief">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDown Data="@getBriefsResult" Placeholder="Choose Brief" style="display: block; width: 100%" TextProperty="briefType" @bind-Value="@(sentence.briefId)" ValueProperty="briefId" Name="BriefId">
+                </RadzenDropDown>
+                <RadzenRequiredValidator Component="BriefId" DefaultValue="0" style="position: absolute" Text="briefId is required">
+                </RadzenRequiredValidator>
+              </div>
+              <div style="margin-bottom: 1rem" class="row">
+                <div class="col-md-3">
+                  <RadzenLabel Component="briefId" style="width: 100%" Text="Brief">
+                  </RadzenLabel>
+                </div>
+                <div class="col-md-9">
+                  <RadzenTextBox Placeholder="Client Name" ReadOnly="true" Name="Textbox0">
+                  </RadzenTextBox>
+                  <RadzenRequiredValidator Component="BriefId" DefaultValue="0" style="position: absolute" Text="briefId is required">
+                  </RadzenRequiredValidator>
+                </div>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="content" style="width: 100%" Text="Content">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="480" style="display: block; width: 100%" @bind-Value="@(sentence.content)" Name="Content">
+                </RadzenTextBox>
+                <RadzenRequiredValidator Component="Content" style="position: absolute" Text="content is required">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Component="verified" style="width: 100%" Text="Verified">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenCheckBox @bind-Value="@(sentence.verified)" Name="Verified">
+                </RadzenCheckBox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Cancel" Click="@Button2Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

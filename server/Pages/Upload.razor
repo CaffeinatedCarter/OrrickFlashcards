@@ -1,0 +1,19 @@
+﻿@page "/upload"
+@layout FullWidthLayout
+@inherits Flashcardgenerator.Pages.UploadComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Flashcardgenerator.Models.Localhost
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Upload">
+    </RadzenHeading>
+    <RadzenLabel style="width: 100%" Text="Upload DOCX File">
+    </RadzenLabel>
+    <div class="col-md-9">
+      <RadzenUpload @ref="upload0" Accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" ChooseText="Choose File" Url="http://localhost:5000/upload" Complete="@Upload0Complete" Error="@Upload0Error">
+      </RadzenUpload>
+    </div>
+  </ChildContent>
+</RadzenContent>
